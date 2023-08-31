@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('conversation_id')->constrained();
+            $table->unique(['user_id', 'conversation_id']); // To ensure a user can't be added twice to the same conversation
             $table->timestamps();
         });
     }

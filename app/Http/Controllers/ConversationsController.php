@@ -8,9 +8,9 @@ class ConversationsController extends Controller
 {
     public function index()
     {
-        $Conversations = Convesation::latest() -> get();
-        
-        return view('conversations.index', ['conversations' => $conversations]);
+       // $Conversations = Conversation::latest() -> get();
+    //    ['conversations' => $conversations]
+        return view('conversations.index' );
     }
 
     public function show(Conversation $conversation)
@@ -22,7 +22,7 @@ class ConversationsController extends Controller
     {
         $conversation = Conversation::create($this->validateRequest());
 
-        return redirect('/conversations/' . $conversation->id);
+        return redirect('/conversations' . $conversation->id);
     }
 
 
