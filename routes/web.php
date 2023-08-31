@@ -36,3 +36,7 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/conversations', 'ConversationsController@index');
+Route::get('/conversations/{conversation}', 'ConversationsController@show');
+Route::post('/conversations', 'ConversationsController@store');
