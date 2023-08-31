@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ConversationsController; // Ukljucujem ConversationsController
-use App\Http\Controllers\ParticipantsController; // Ukljucujem ParticipantsController
-use App\Http\Controllers\MessagesController;     // Ukljucujem MessagesController
-//use App\Http\Controllers\UsersController;        // Ukljucujem UsersController
+use App\Http\Controllers\ConversationController; // Ukljucujem ConversationController
+use App\Http\Controllers\ParticipantController; // Ukljucujem ParticipantController
+use App\Http\Controllers\MessagesController;     // Ukljucujem MessageController
+use App\Http\Controllers\UserController; // Ukljucujem UserController
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,21 +39,26 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/conversations', [ConversationsController::class, 'index'])->name('conversations.index');      // Dodajem index metodu u ConversationsController
-Route::get('/conversations/{id}', 'ConversationsController@show');  // Dodajem show metodu u ConversationsController
-Route::post('/conversations', 'ConversationsController@store');     // Dodajem store metodu u ConversationsController
+Route::get('/conversations', [ConversationController::class, 'index']) ->name('conversations.index');
+Route::get('/conversations/create', [ConversationController::class, 'create']) ->name('conversations.create');
+Route::post('/conversations', 'ConversationController@store');     // Dodajem store metodu u ConversationController
+Route::get('/conversations/{id}', [ConversationController::class ,'show']) -> name('conversations.show'); 
+Route::delete('/pizzas/{id}', 'PizzaController@destroy');
 
-Route::get('/participants', [ParticipantsController::class, 'index'])->name('participants.index');      // Dodajem index metodu u ParticipantsController
-Route::get('/participants/{id}', 'ParticipantsController@show');  // Dodajem show metodu u ParticipantsController
-Route::post('/participants', 'ParticipantsController@store');     // Dodajem store metodu u ParticipantsController
+Route::get('/participants', 'ParticipantController@index');      // Dodajem index metodu u ParticipantController
+Route::get('/participants/{id}', 'ParticipantController@show');  // Dodajem show metodu u ParticipantController
+Route::post('/participants', 'ParticipantController@store');     // Dodajem store metodu u ParticipantController
 
-Route::get('/messages', [MessagesController::class, 'index'])->name('messages.index');      // Dodajem index metodu u MessagesController
-Route::get('/messages/{id}', 'MessagesController@show');  // Dodajem show metodu u MessagesController
-Route::post('/messages', 'MessagesController@store');     // Dodajem store metodu u MessagesController
+Route::get('/messages', 'MessageController@index');      // Dodajem index metodu u MessageController
+Route::get('/messages/{id}', 'MessageController@show');  // Dodajem show metodu u MessageController
+Route::post('/messages', 'MessageController@store');     // Dodajem store metodu u MessageController
 
-Route::get('/users', [UsersController::class, 'index'])->name('users.index');      // Dodajem index metodu u UsersController
-Route::get('/users/{id}', 'UsersController@show');  // Dodajem show metodu u UsersController
-Route::post('/users', 'UsersController@store');     // Dodajem store metodu u UsersController
+Route::get('/pizzas', 'PizzaController@index');
+Route::get('/pizzas/create', 'PizzaController@create');
+Route::post('pizzas', 'PizzaController@store');
+Route::get('/pizzas/{id}', 'PizzaController@show');
+Route::delete('/pizzas/{id}', 'PizzaController@destroy');
+// Auth::routes();
 
 require __DIR__.'/auth.php';
 

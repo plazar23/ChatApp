@@ -16,6 +16,9 @@ use Inertia\Response;
 
 class RegisteredUserController extends Controller
 {
+    
+    
+    
     /**
      * Display the registration view.
      */
