@@ -41,23 +41,27 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/conversations', [ConversationController::class, 'index']) ->name('conversations.index');
 Route::get('/conversations/create', [ConversationController::class, 'create']) ->name('conversations.create');
-Route::post('/conversations', 'ConversationController@store');     // Dodajem store metodu u ConversationController
+Route::post('/conversations', [ConversationController::class, 'store']) ->name('conversations.store');
 Route::get('/conversations/{id}', [ConversationController::class ,'show']) -> name('conversations.show'); 
-Route::delete('/pizzas/{id}', 'PizzaController@destroy');
+Route::delete('/pizzas/{id}', [ConversationController::class , 'destroy']) -> name('conversations.destroy');
 
-Route::get('/participants', 'ParticipantController@index');      // Dodajem index metodu u ParticipantController
-Route::get('/participants/{id}', 'ParticipantController@show');  // Dodajem show metodu u ParticipantController
-Route::post('/participants', 'ParticipantController@store');     // Dodajem store metodu u ParticipantController
+Route::get('/participants', [ParticipantController::class, 'index']) ->name('participants.index');
+Route::get('/participants/create', [ParticipantController::class, 'create']) ->name('participants.create'); 
+Route::post('/participants', [ParticipantController::class, 'store']) ->name('participants.store'); 
+Route::get('/participants/{id}', [ParticipantController::class ,'show']) -> name('participants.show');  
+Route::delete('/participants/{id}', [ParticipantController::class , 'destroy']) -> name('participants.destroy');
 
-Route::get('/messages', 'MessageController@index');      // Dodajem index metodu u MessageController
-Route::get('/messages/{id}', 'MessageController@show');  // Dodajem show metodu u MessageController
-Route::post('/messages', 'MessageController@store');     // Dodajem store metodu u MessageController
+Route::get('/messages', [MessagesController::class, 'index']) ->name('messages.index');
+Route::get('/messages/create', [MessagesController::class, 'create']) ->name('messages.create');
+Route::post('/messages', [MessagesController::class, 'store']) ->name('messages.store');
+Route::get('/messages/{id}', [MessagesController::class ,'show']) -> name('messages.show');
+Route::delete('/messages/{id}', [MessagesController::class , 'destroy']) -> name('messages.destroy');
 
-Route::get('/pizzas', 'PizzaController@index');
-Route::get('/pizzas/create', 'PizzaController@create');
-Route::post('pizzas', 'PizzaController@store');
-Route::get('/pizzas/{id}', 'PizzaController@show');
-Route::delete('/pizzas/{id}', 'PizzaController@destroy');
+// Route::get('/pizzas', 'PizzaController@index');
+// Route::get('/pizzas/create', 'PizzaController@create');
+// Route::post('pizzas', 'PizzaController@store');
+// Route::get('/pizzas/{id}', 'PizzaController@show');
+// Route::delete('/pizzas/{id}', 'PizzaController@destroy');
 // Auth::routes();
 
 require __DIR__.'/auth.php';

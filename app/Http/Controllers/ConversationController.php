@@ -28,5 +28,17 @@ class ConversationController extends Controller
         return view('conversations.show', ['conversation' => $conversation]);
       }
 
+    public function store(){
+        $conversation = new Conversation();
+        $conversation->title = request('title');
+        $conversation->save();
+        return redirect('/conversations')->with('mssg', 'You created conversation');
+    }
+
+    public function destroy($id){
+        $conversation = Conversation::findOrFail($id);
+        $conversation->delete();
+        return redirect('/conversations');
+    }
 
 }
