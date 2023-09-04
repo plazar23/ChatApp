@@ -42,4 +42,27 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    // Devices of the user
+    public function devices()
+    {
+        return $this->hasMany(Device::class);
+    }
+
+    // Conversations initiated by the user
+    public function initiatedConversations()
+    {
+        return $this->hasMany(Conversation::class, 'initiator_user_id');
+    }
+
+    // Conversations in which the user is a participant
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'participants');
+    }
+
+    // Messages sent by the user
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

@@ -1,20 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use App\Models\Conversation;
+use Illuminate\Http\Response;
+use App\Http\Resources\ConversationResource;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+
 
 class ConversationController extends Controller
 {
     public function index()
     {
        
-       $conversations = Conversation::latest() -> get();
+       $conversations = Conversation::all();
        
-        return view('conversations.index', [
-            'conversations' => $conversations
-        ]);
+        return response()->json(['conversations' => $conversations], 200);
     }
 
     
@@ -23,9 +26,8 @@ class ConversationController extends Controller
         return view('conversations.create');
     }
 
-    public function show($id) {
-        $conversation = Conversation::findOrFail($id);
-        return view('conversations.show', ['conversation' => $conversation]);
+    public function show(Conversation $conversation) {
+        return response()->json(['conversation' => $conversation], 200);
       }
 
     public function store(){

@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ConversationController; // Ukljucujem ConversationController
-use App\Http\Controllers\ParticipantController; // Ukljucujem ParticipantController
-use App\Http\Controllers\MessagesController;     // Ukljucujem MessageController
-use App\Http\Controllers\UserController; // Ukljucujem UserController
+use App\Http\Controllers\Api\ConversationController; // Ukljucujem ConversationController
+use App\Http\Controllers\Api\ParticipantController; // Ukljucujem ParticipantController
+use App\Http\Controllers\Api\MessageController;     // Ukljucujem MessageController
+use App\Http\Controllers\Api\UserController; // Ukljucujem UserController
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,23 +45,26 @@ Route::post('/conversations', [ConversationController::class, 'store']) ->name('
 Route::get('/conversations/{id}', [ConversationController::class ,'show']) -> name('conversations.show'); 
 Route::delete('/pizzas/{id}', [ConversationController::class , 'destroy']) -> name('conversations.destroy');
 
+
 Route::get('/participants', [ParticipantController::class, 'index']) ->name('participants.index');
 Route::get('/participants/create', [ParticipantController::class, 'create']) ->name('participants.create'); 
 Route::post('/participants', [ParticipantController::class, 'store']) ->name('participants.store'); 
 Route::get('/participants/{id}', [ParticipantController::class ,'show']) -> name('participants.show');  
 Route::delete('/participants/{id}', [ParticipantController::class , 'destroy']) -> name('participants.destroy');
 
-Route::get('/messages', [MessagesController::class, 'index']) ->name('messages.index');
-Route::get('/messages/create', [MessagesController::class, 'create']) ->name('messages.create');
-Route::post('/messages', [MessagesController::class, 'store']) ->name('messages.store');
-Route::get('/messages/{id}', [MessagesController::class ,'show']) -> name('messages.show');
-Route::delete('/messages/{id}', [MessagesController::class , 'destroy']) -> name('messages.destroy');
+Route::get('/messages', [MessageController::class, 'index']) ->name('messages.index');
+Route::get('/messages/create', [MessageController::class, 'create']) ->name('messages.create');
+Route::post('/messages', [MessageController::class, 'store']) ->name('messages.store');
+Route::get('/messages/{id}', [MessageController::class ,'show']) -> name('messages.show');
+Route::delete('/messages/{id}', [MessageController::class , 'destroy']) -> name('messages.destroy');
 
-// Route::get('/pizzas', 'PizzaController@index');
-// Route::get('/pizzas/create', 'PizzaController@create');
-// Route::post('pizzas', 'PizzaController@store');
-// Route::get('/pizzas/{id}', 'PizzaController@show');
-// Route::delete('/pizzas/{id}', 'PizzaController@destroy');
+Route::get('/users', [UserController::class, 'index']) ->name('users.index');
+Route::get('/users/create', [UserController::class, 'create']) ->name('users.create');
+Route::post('/users', [UserController::class, 'store']) ->name('users.store');
+Route::get('/users/{id}', [UserController::class ,'show']) -> name('users.show');
+Route::delete('/users/{id}', [UserController::class , 'destroy']) -> name('users.destroy');
+
+
 // Auth::routes();
 
 require __DIR__.'/auth.php';

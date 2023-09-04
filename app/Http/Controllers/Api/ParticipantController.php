@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Models\Participant;
+use App\Http\Controllers\Controller;
 
-class ParticipantsController extends Controller
+class ParticipantController extends Controller
+
 {
     public function index()
     {
@@ -24,4 +27,16 @@ class ParticipantsController extends Controller
 
         return redirect('/participants/' . $participant->id);
     } 
+
+    public function destroy(Participant $participant)
+    {
+        $participant->delete();
+
+        return redirect('/participants');
+    }
+
+    public function create()
+    {
+        return view('participants.create');
+    }
 }
